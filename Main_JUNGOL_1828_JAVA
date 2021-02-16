@@ -1,0 +1,55 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+	
+	static int N;
+	static int[] les;
+	static int[] mor;
+	static boolean[] v;
+	static int cnt=0;
+	
+	public static void main(String[] args) {
+		Scanner scann = new Scanner(System.in);
+		N=scann.nextInt();
+		les=new int[N];
+		mor=new int[N];
+		v=new boolean[N];
+		for(int i=0;i<N;i++) {
+			les[i]=scann.nextInt();
+			mor[i]=scann.nextInt();
+		}
+
+		for(int i=0;i<N;i++) {
+			for(int j=i+1;j<N;j++) {
+				if(mor[i]>mor[j]) {
+					int temp=mor[i];
+					mor[i]=mor[j];
+					mor[j]=temp;
+					temp=les[i];
+					les[i]=les[j];
+					les[j]=temp;
+				}
+			}
+		}
+		for(int i=0;i<N;i++) {
+			if(!v[i]) {
+				find(i);
+			}
+		}
+		System.out.println(cnt);
+	}
+	private static void find(int num) {
+		int count=0;
+		for(int i=0;i<N;i++) {
+			if((!v[i]) && (les[i]<=mor[num])) {
+				count++;
+				v[i]=true;
+			}
+		}
+		if(count>0) {
+			cnt++;
+		}
+	}
+
+}
